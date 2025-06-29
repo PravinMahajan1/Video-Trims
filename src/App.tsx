@@ -32,7 +32,7 @@ function App() {
       const formData = new FormData();
       formData.append('video', videoFile);
       formData.append('segmentTime', String(segmentUnit === 'minutes' ? segmentTime * 60 : segmentTime));
-      const res = await fetch('http://localhost:5000/api/upload', {
+      const res = await fetch('https://simpleclips.onrender.com/api/upload', {
         method: 'POST',
         body: formData,
       });
@@ -41,7 +41,7 @@ function App() {
         throw new Error(err.error || 'Upload failed');
       }
       const data = await res.json();
-      setSegments(data.segments.map((url: string) => `http://localhost:5000${url}`));
+      setSegments(data.segments.map((url: string) => `https://simpleclips.onrender.com${url}`));
       if (data.segments.length > 0) {
         const match = data.segments[0].match(/\/segments\/(.*?)\//);
         setSegmentFolder(match ? match[1] : null);
@@ -158,7 +158,7 @@ function App() {
                 {segmentFolder && segments.length > 0 && (
                   <div style={{ marginTop: 24 }}>
                     <a
-                      href={`http://localhost:5000/api/download-all/${segmentFolder}`}
+                      href={`https://simpleclips.onrender.com/api/download-all/${segmentFolder}`}
                       className="download-zip-btn"
                     >
                       Download All as ZIP
@@ -191,7 +191,7 @@ function App() {
             {segmentFolder && segments.length > 0 && (
               <div style={{ marginTop: 24 }}>
                 <a
-                  href={`http://localhost:5000/api/download-all/${segmentFolder}`}
+                  href={`https://simpleclips.onrender.com/api/download-all/${segmentFolder}`}
                   className="download-zip-btn"
                 >
                   Download All as ZIP
